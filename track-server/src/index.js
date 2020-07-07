@@ -16,9 +16,7 @@ mongoose.connection.on('error', (err)=>{console.error('mongoDB: connection error
 
 app.use(authRoutes);
 
-app.get('/',(req,res)=>{
-    res.send('Hi there!');
-});
+
 
 app.listen(3000,()=>{
     console.log('listening on port 3000');
