@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState, useContext} from 'react';
 import {View,StyleSheet} from 'react-native';
 import {Text, Input, Button} from 'react-native-elements';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const SignupScreen = ({navigation}) => {
+    const {state,signup} = useContext(AuthContext); 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     return(
@@ -11,13 +13,14 @@ const SignupScreen = ({navigation}) => {
             <View style={styles.spacer}> 
                 <Input label="Email" value={email} onChangeText={setEmail} autoCapitalize="none" autoCorrect={false}/>
                 <Input label="Password" value={password} onChangeText={setPassword} secureTextEntry={true} autoCapitalize="none" autoCorrect={false}/>
-                <Button title ="Sign UP" onPress={()=>navigation.navigate('Signin')}/>
+                {state.errorMessage? <Text style={styles.errMsg} >{state.errorMessage}</Text>:null}
+                <Button title ="Sign UP" onPress={()=> signup({email,password})}/>
             </View>
         </View>
     );
 }
 
-SignupScreen.navigationOptions = ()=> { return{header:null}};
+SignupScreen.navigationOptions = ()=> { return{headerShown:false}};
 
 const styles = StyleSheet.create({
     spacer:{
@@ -27,6 +30,10 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:"center",
         marginBottom:200  
+    },
+    errMsg:{
+        color:'red',
+        fontSize:15
     }
 });
 
