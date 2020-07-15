@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Input,Button} from 'react-native-elements';
+import { Input,Button, colors} from 'react-native-elements';
 import { View, StyleSheet } from 'react-native';
 import {Context as LocationContext} from '../context/LocationContext';
 
@@ -17,7 +17,13 @@ const TrackForm = () => {
             ? <Button title="Stop" onPress={stopRecording} />
             : <Button title="Start Recording" onPress={startRecording} />
             }
-            
+            <View style={styles.topspace}>
+            {
+                !recording &&  locations.length
+                ? <Button title="Save" onPress={""} />
+                : null
+            }
+            </View>
         </View>
     );
 }
@@ -25,6 +31,9 @@ const TrackForm = () => {
 const styles = StyleSheet.create({
     box:{
         margin: 20
+    },
+    topspace:{
+        marginTop:20
     }
 });
 
