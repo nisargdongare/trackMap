@@ -1,10 +1,15 @@
-const express = require('express');
+const express = require('express');   
+const authController = require('../controllers/authController');
+const requireAuth = require('../middlewares/requireAuth');
 
 const router = express.Router();
 
-router.post('/signup', (req,res)=> {
-    res.send('You made a post request.');
-});
+
+router.get('/',requireAuth,authController.firstlook);
+
+
+router.post('/signup', authController.signup);
+router.post('/signin', authController.signin);
 
 
 module.exports = router;
